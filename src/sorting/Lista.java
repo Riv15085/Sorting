@@ -12,6 +12,7 @@ public class Lista<T> {
 
     Nodo Cabeza;
     int Largo=0;
+    ArrayList array = new ArrayList();
     
     public int size() {
         return Largo;
@@ -66,7 +67,6 @@ public class Lista<T> {
 
         }
     
-
     }
-    
+
 }
