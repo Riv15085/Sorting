@@ -14,7 +14,7 @@ import java.util.Random;
  * based on pseudo code on Wikipedia "Quick Sort" aricle
  * 
  * @see http://en.wikipedia.org/wiki/Quicksort#Simple_version
- * @author adolfo
+ * @author Enma Lopez
  *
  */
 public class QuickSort {
