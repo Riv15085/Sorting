@@ -122,5 +122,71 @@ public class Lista<T> {
         System.arraycopy(primero, iPrimero, resultado, iMerged, primero.length - iPrimero);
         System.arraycopy(segundo, iSegundo, resultado, iMerged, segundo.length - iSegundo);
     }
+        public List<Nodo> quicksort_execute(List<Integer> list) {
+        List<Nodo> nodos = new ArrayList();
+        for (int i: list) {
+            nodos.add(new Nodo(i));
+        }
 
+        return quicksort(nodos);
+    }
+
+    /**
+     * Codigo tomando de Quick sort pseudo code on Wikipedia "Quick Sort" aricle
+     * @see http://en.wikipedia.org/wiki/Quicksort#Simple_version
+     * Este metodo ingresa ArrayList de nodos usando el algoritmo de quick sort
+     * @param recibe como parametro una lista desordenada de un Array List de nodos
+     * @return devuelve ArrayList de nodss
+     */
+       private List<Nodo> quicksort(List<Nodo> unorderedList){
+
+        if(unorderedList.size() <= 1) {
+            return unorderedList;
+        }
+
+        //Se calculcula el pivote que esta en la mitad de la lista 
+        int middle = (int) Math.ceil((double)unorderedList.size() / 2);
+
+        // Se asigna el valor del pivote
+        Nodo pivotNode = unorderedList.get(middle);
+
+        List<Nodo> underPivot = new ArrayList();
+        List<Nodo> upPivot = new ArrayList();
+
+        //Separamos la lista en dos arryas, el primer elemento debajo del pivote y el segundo elemento arriba del pivote 
+        
+        for (int i = 0; i < unorderedList.size(); i++) {
+            // Se usa el valor para cmpara con el pivote si es menor o mayor
+            if ((int)unorderedList.get(i).getValor() <= (int)pivotNode.getValor()) {
+                if (i == middle) {
+                    continue;
+                }
+                underPivot.add(unorderedList.get(i));
+            } else {
+                upPivot.add(unorderedList.get(i));
+            }
+        }
+
+        // Luego llamamos de nuevo a quick sort hacemos esto para ordenarlo denuevo
+        // Cada parte dividida en la lista hasta tener la lista iniciar
+        // ordenada
+        return concatenate(quicksort(underPivot), pivotNode, quicksort(upPivot));
+    }
+
+    private List<Nodo> concatenate(List<Nodo> less, Nodo pivot, List<Nodo> greater) {
+
+            List<Nodo> list = new ArrayList();
+
+            for (int i = 0; i < less.size(); i++) {
+                    list.add(less.get(i));
+            }
+
+            list.add(pivot);
+
+            for (int i = 0; i < greater.size(); i++) {
+                    list.add(greater.get(i));
+            }
+
+            return list;
+    }
 }
