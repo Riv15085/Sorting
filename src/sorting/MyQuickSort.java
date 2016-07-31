@@ -3,75 +3,85 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package sorting;
 
- 
-public class MyQuickSort {
-     
-    private int array[];
-    private int length;
- 
-    public void sort(int[] inputArr) {
-         
-        if (inputArr == null || inputArr.length == 0) {
-            return;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
+/**
+ * Quick sort algorithm (simple)
+ * based on pseudo code on Wikipedia "Quick Sort" aricle
+ * 
+ * @see http://en.wikipedia.org/wiki/Quicksort#Simple_version
+ * @author adolfo
+ *
+ */
+public class QuickSort {
+
+    public List<Nodo> quicksort_execute(List<Integer> list) {
+        List<Nodo> nodos = new ArrayList();
+        for (int i: list) {
+            nodos.add(new Nodo(i));
         }
-        this.array = inputArr;
-        length = inputArr.length;
-        quickSort(0, length - 1);
+
+        return quicksort(nodos);
     }
- 
-    private void quickSort(int lowerIndex, int higherIndex) {
-         
-        int i = lowerIndex;
-        int j = higherIndex;
-        // calculate pivot number, I am taking pivot as middle index number
-        int pivot = array[lowerIndex+(higherIndex-lowerIndex)/2];
-        System.out.println("Valor i:" +i + "Valor j"+ j+ "Pivote: "+ pivot);
-        // Divide into two arrays
-        while (i <= j) {
-            /**
-             * In each iteration, we will identify a number from left side which
-             * is greater then the pivot value, and also we will identify a number
-             * from right side which is less then the pivot value. Once the search
-             * is done, then we exchange both numbers.
-             */
-            while (array[i] < pivot) {
-                i++;
-                System.out.println("");
-            }
-            while (array[j] > pivot) {
-                j--;
-            }
-            if (i <= j) {
-                exchangeNumbers(i, j);
-                //move index to next position on both sides
-                i++;
-                j--;
+
+    /**
+     * This method sort the input ArrayList of nodes using quick sort algorithm.
+     * @param unorderedList the ArrayList of nodes
+     * @return sorted ArrayList of nodes
+     */
+    private List<Nodo> quicksort(List<Nodo> unorderedList){
+
+        if(unorderedList.size() <= 1) {
+            return unorderedList;
+        }
+
+        // We calculate the middle of the list (So we get the element at the middle)
+        int middle = (int) Math.ceil((double)unorderedList.size() / 2);
+
+        // Our pivot is the middle element of the list
+        Nodo pivotNode = unorderedList.get(middle);
+
+        List<Nodo> underPivot = new ArrayList();
+        List<Nodo> upPivot = new ArrayList();
+
+        // We need to separate the list in two pieces, first the elements under de pivot
+        // and the second the elements up to pivot
+        for (int i = 0; i < unorderedList.size(); i++) {
+            // We use the value (number) to know if is under or up to the pivot
+            if ((int)unorderedList.get(i).getValor() <= (int)pivotNode.getValor()) {
+                if (i == middle) {
+                    continue;
+                }
+                underPivot.add(unorderedList.get(i));
+            } else {
+                upPivot.add(unorderedList.get(i));
             }
         }
-        // call quickSort() method recursively
-        if (lowerIndex < j)
-            quickSort(lowerIndex, j);
-        if (i < higherIndex)
-            quickSort(i, higherIndex);
+
+        // The we recursively call quicksort. We do this because with this we order
+        // Every half part of every list. So at the end we will have the initial list
+        // ordered
+        return concatenate(quicksort(underPivot), pivotNode, quicksort(upPivot));
     }
- 
-    private void exchangeNumbers(int i, int j) {
-        int temp = array[i];
-        array[i] = array[j];
-        array[j] = temp;
-    }
-     
-    public static void main(String a[]){
-         
-        MyQuickSort sorter = new MyQuickSort();
-        int[] input = {24,2,45,20,56,75,2,56,99,53,12};
-        sorter.sort(input);
-        for(int i:input){
-            System.out.print(i);
-            System.out.print(" ");
-        }
+
+    private List<Nodo> concatenate(List<Nodo> less, Nodo pivot, List<Nodo> greater) {
+
+            List<Nodo> list = new ArrayList();
+
+            for (int i = 0; i < less.size(); i++) {
+                    list.add(less.get(i));
+            }
+
+            list.add(pivot);
+
+            for (int i = 0; i < greater.size(); i++) {
+                    list.add(greater.get(i));
+            }
+
+            return list;
     }
 }
