@@ -68,5 +68,59 @@ public class Lista<T> {
         }
     
     }
+    
+    // Referencia para el metodo recursivo mergeSort y merge: http://howtodoinjava.com/algorithm/merge-sort-java-example/
+    public void mergeSort(Comparable[] lista){
+        if (lista.length > 1) {
+            //Separa el array en dos
+            Comparable[] primero = new Comparable[lista.length / 2];
+            Comparable[] segundo = new Comparable[lista.length - primero.length];
+            System.arraycopy(lista, 0, primero, 0, primero.length);
+            System.arraycopy(lista, primero.length, segundo, 0, segundo.length);
+
+            //Parte recursivamente cada mitad
+            mergeSort(primero);
+            mergeSort(segundo);
+
+            //Sobreescribe el array original mezclando las dos mitades
+            merge(primero, segundo, lista);
+            Nodo nodo1 = Cabeza; 
+            for (Comparable lista1 : lista) {
+                nodo1.setValor(lista1);
+                nodo1 = nodo1.getSiguiente();
+            }
+        }
+    }
+    
+     private static void merge(Comparable[] primero, Comparable[] segundo, Comparable[] resultado) 
+    {
+        //Index del primer array
+        int iPrimero = 0;
+         
+        //Index del segundo array
+        int iSegundo = 0;
+         
+        //Index del array mezclado
+        int iMerged = 0;
+         
+        //Compare elements en iPrimero y iSegundo y mueve el mas pequenho en iMerged
+        while (iPrimero < primero.length && iSegundo < segundo.length) 
+        {
+            if (primero[iPrimero].compareTo(segundo[iSegundo]) < 0) 
+            {
+                resultado[iMerged] = primero[iPrimero];
+                iPrimero++;
+            } 
+            else
+            {
+                resultado[iMerged] = segundo[iSegundo];
+                iSegundo++;
+            }
+            iMerged++;
+        }
+        //copy remaining elements from both halves - each half will have already sorted elements
+        System.arraycopy(primero, iPrimero, resultado, iMerged, primero.length - iPrimero);
+        System.arraycopy(segundo, iSegundo, resultado, iMerged, segundo.length - iSegundo);
+    }
 
 }
