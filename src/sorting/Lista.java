@@ -189,4 +189,24 @@ public class Lista<T> {
 
             return list;
     }
+    public void BubbleSort(){
+        boolean orden = true;
+        while (orden){
+            orden= false;
+            for (Nodo nodo1=Cabeza; nodo1!=null; nodo1=nodo1.getSiguiente()){
+                Nodo valor = nodo1;
+                if (nodo1.getSiguiente()!= null){
+                   Nodo nodo2 = nodo1.getSiguiente();
+                   
+                   if (nodo2.compareTo(valor.getValor())==1){
+                       valor = nodo2;
+                       Nodo temp = new Nodo(nodo1.getValor());
+                       nodo1.Valor = valor.Valor;
+                       valor.Valor = temp.Valor;
+                       orden = true;
+                }
+                }
+            }
+        }
+    }
 }

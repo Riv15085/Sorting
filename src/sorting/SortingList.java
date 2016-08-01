@@ -16,7 +16,7 @@ public class SortingList {
         Lista<Integer> miLista=new Lista<Integer>();
         String elemento=" ";
         int num;
-        String archivo="C:\\Users\\Usuario\\Documents\\NetBeansProjects\\SortingList\\src\\sortinglist\\prueba.txt";
+        String archivo="C:\\Users\\diego\\Desktop\\Diego Rivera\\texto\\prueba.txt";
         
         Vector parrafo = Lector.leerArchivo(archivo);
         Integer[] listaArray = new Integer[parrafo.size()];
@@ -33,9 +33,8 @@ public class SortingList {
         
         //miLista.mergeSort(listaArray); /*Se utiliza mergeSort*/
         //se utiliza seleccion sort
-        miLista.selectionSort();
+        miLista.BubbleSort();
         miLista.Print();
-        
         
         
        
