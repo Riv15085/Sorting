@@ -1,6 +1,7 @@
 package sorting;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Vector;
 
 /**
@@ -29,19 +30,25 @@ public class SortingList {
             miLista.addNodo(num);
             listaArray[i] = (Integer)num;
         }
+        //ArrayList<Integer> lista = new ArrayList();
         
-        
-        //miLista.mergeSort(listaArray); /*Se utiliza mergeSort*/
-        //se utiliza seleccion sort
+        System.out.println("Ordenamiento con Bubble Sort");
         miLista.BubbleSort();
         miLista.Print();
-        
-        
-       
-        
-        
-        
-        
+        System.out.println("Ordenamiento con Merge Sort");
+        miLista.mergeSort(listaArray);
+        miLista.Print();
+        System.out.println("Ordenamiento con Selection Sort");
+        miLista.selectionSort();
+        miLista.Print();
+        /*List<Nodo> listaOrdenada = miLista.quicksort_execute(lista);
+        System.out.println("Lista desordenada");
+        System.out.println(lista);
+        System.out.println("Lista ordenada");
+        String listaOrdenadaToString = "";
+        for (Nodo nodo : listaOrdenada) {
+            listaOrdenadaToString += " "  + (int)nodo.getValor();
+        }
+        System.out.println(lista);*/
     }
-    
 }
